@@ -1,4 +1,4 @@
 # RcString
 OP 6th task
 
-Wersja skonczona przed oceną
+Wersja skonczona poprawiona oceniona
