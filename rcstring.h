@@ -106,7 +106,7 @@ int rcstring::atoi()
 {
     int r = 0;
 
-    for(unsigned int i = this->data->size - 1; i >= 0; i--)
+    for(unsigned int i = 0; i < this->data->size - 1; i++)
         r += (this->data->s[i] - '0') * pow(10, this->data->size - i - 1);
 
     return r;
@@ -114,26 +114,34 @@ int rcstring::atoi()
 
 rcstring& rcstring::toLower()
 {
+    char tmp;
+    bool check = false;
     for(unsigned int i = 0; i < this->data->size; i++)
-        if(this->data->s[i] >= 'A' && this->data->s[i] <= 'Z')
-            this->data->s[i] += 'a' - 'A';
+    {
+      if(this->data->s[i] >= 'A' && this->data->s[i] <= 'Z')
+      {
+         tmp = this->data->s[i] - 'a' - 'A';
+         if(tmp != this->data->s[i])
+         {
+           if(!check)
+           {
+             check = true;
+             this->data = this->data->detach();
+           }
+           this->data->s[i] = tmp;
+         }
+      }
+    }
 
     return *this;
 }
 
 rcstring rcstring::Left(int n)
 {
-    if(!n)
-        return *this;
-
-    data = data->detach();
-
     rcstring ret;
-    ret.data = new rctext(n+1,"");
 
-    for(int i = 0; i < n ; i++){
-        ret.data->s[i]=this->data->s[i];
-    }
+    for(int i = 0 ; i < n; i++)
+      ret.write(i,this->data->s[i]);
 
     return ret;
 }
