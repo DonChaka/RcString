@@ -2,13 +2,17 @@
 
 int main()
 {
-rcstring a,b,c;
+rcstring a,b,c,l;
+int test;
 
 a="10";
 b="ala ma kota";
 cout << a << " " << b << endl; // 10 ala ma ma kota
 c=b.Left(3);
 cout << b<<endl; // 10ala ma kota
+l = "554";
+test = l.atoi();
+cout << l << " = " << test << endl;
 c=a+rcstring(" ")+b;
 cout << c << endl; //10 ala ma kota
 rcstring d("a");
